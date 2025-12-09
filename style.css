@@ -1,0 +1,179 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #f5f7fb;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.app {
+  max-width: 900px;
+  width: 100%;
+  background: #fff;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.card {
+  padding: 16px;
+  border-radius: 12px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  text-align: center;
+}
+
+.card.balance {
+  background: #0f172a;
+  color: #fff;
+}
+
+.card .value {
+  font-size: 22px;
+  margin-top: 8px;
+}
+
+.card.income .value {
+  color: green;
+}
+
+.card.expense .value {
+  color: red;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+form {
+  background: #f8fafc;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.field {
+  margin-bottom: 12px;
+}
+
+label {
+  font-size: 14px;
+  margin-bottom: 4px;
+  display: block;
+}
+
+input, select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #cbd5f1;
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+button {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-primary {
+  background: #4f46e5;
+  color: #fff;
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid #cbd5f1;
+  color: #333;
+}
+
+.transactions-panel {
+  background: #f8fafc;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.transactions-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.transactions-table th,
+.transactions-table td {
+  padding: 8px;
+}
+
+.transactions-table tbody tr:nth-child(odd) {
+  background: #f1f5f9;
+}
+
+.tag-income {
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: #dcfce7;
+  color: #15803d;
+  font-size: 12px;
+}
+
+.tag-expense {
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: #fee2e2;
+  color: #b91c1c;
+  font-size: 12px;
+}
+
+.amount-pos { color: green; }
+.amount-neg { color: red; }
+
+.empty-state {
+  text-align: center;
+  padding: 12px;
+  font-size: 14px;
+  color: #777;
+}
