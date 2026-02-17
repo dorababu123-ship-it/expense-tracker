@@ -2,7 +2,7 @@
 let transactions = [];
 const LOCAL_KEY = "expense-tracker-data";
 
-conaole.log("hello")
+conaole.log("hello ")
 
 // ----- SELECTORS -----
 const balanceEl = document.getElementById("balance");
