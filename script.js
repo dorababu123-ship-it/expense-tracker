@@ -1,8 +1,11 @@
 // ----- STATE -----
 let transactions = [];
-const LOCAL_KEY = "expense-tracker-data";
-
-conaole.log("hello ")
+// Fetch all transactions from backend
+async function fetchTransactions() {
+  const res = await fetch("http://localhost:5000/api/transactions");
+  transactions = await res.json();
+  render();
+}
 
 // ----- SELECTORS -----
 const balanceEl = document.getElementById("balance");
@@ -22,16 +25,6 @@ const clearAllBtn = document.getElementById("clear-all");
 const tableBody = document.getElementById("transactions-body");
 const emptyState = document.getElementById("empty-state");
 
-// ----- INIT -----
-function loadData() {
-  const saved = localStorage.getItem(LOCAL_KEY);
-  if (saved) transactions = JSON.parse(saved);
-}
-
-function saveData() {
-  localStorage.setItem(LOCAL_KEY, JSON.stringify(transactions));
-}
-
 // Set today's date by default
 function setToday() {
   const today = new Date().toISOString().slice(0, 10);
@@ -43,22 +36,29 @@ function formatMoney(n) {
   return "₹" + Number(n).toFixed(2);
 }
 
-function addTransaction(t) {
-  transactions.push(t);
-  saveData();
-  render();
+async function addTransaction(t) {
+  await fetch("http://localhost:5000/api/transactions", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(t),
+  });
+
+  fetchTransactions(); // reload data
 }
 
-function deleteTransaction(id) {
-  transactions = transactions.filter((t) => t.id !== id);
-  saveData();
-  render();
+async function deleteTransaction(id) {
+  await fetch(`http://localhost:5000/api/transactions/${id}`, {
+    method: "DELETE",
+  });
+
+  fetchTransactions();
 }
 
 function clearAll() {
   if (confirm("Delete all transactions?")) {
     transactions = [];
-    saveData();
     render();
   }
 }
@@ -98,14 +98,13 @@ function render() {
       <td>${t.description}</td>
       <td>${t.category || "-"}</td>
       <td><span class="${t.type === "income" ? "tag-income" : "tag-expense"}">${
-      t.type
-    }</span></td>
+        t.type
+      }</span></td>
       <td class="${
         t.type === "income" ? "amount-pos" : "amount-neg"
       }">${formatMoney(t.amount)}</td>
       <td>${t.date}</td>
-      <td><button class="btn-outline" onclick="deleteTransaction('${
-        t.id
+      <td><button class="btn-outline" onclick=deleteTransaction('${t._id}')
       }')">❌</button></td>
     `;
 
@@ -150,6 +149,5 @@ filterType.addEventListener("change", render);
 clearAllBtn.addEventListener("click", clearAll);
 
 // ----- START APP -----
-loadData();
 setToday();
-render();
+fetchTransactions();
